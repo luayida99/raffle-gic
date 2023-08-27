@@ -12,14 +12,15 @@ import sg.gic.com.exceptions.NegativeTicketsToBuyException;
 import sg.gic.com.menu.*;
 import sg.gic.com.player.Player;
 import sg.gic.com.raffle.Raffle;
+import sg.gic.com.raffle.Runnable;
 import sg.gic.com.ticket.TicketFactory;
 
 public class RaffleApplication {
   private TicketFactory factory;
   private Draw draw;
-  private Raffle raffle;
+  private Runnable raffle;
 
-  public RaffleApplication(TicketFactory factory, Draw draw, Raffle raffle) {
+  public RaffleApplication(TicketFactory factory, Draw draw, Runnable raffle) {
     this.factory = factory;
     this.draw = draw;
     this.raffle = raffle;
@@ -94,7 +95,8 @@ public class RaffleApplication {
   private void run() {
     MainMenu mainMenu = new MainMenu();
     BuyTicketsPromptMenu buyTicketsPromptMenu = new BuyTicketsPromptMenu();
-    RunRaffleMenu runRaffleMenu = new RunRaffleMenu(raffle);
+    // Safe cast, main method instantiates as Raffle classtype.
+    RunRaffleMenu runRaffleMenu = new RunRaffleMenu((Raffle) raffle);
 
     mainMenu.display();
     Scanner sc = new Scanner(System.in);
@@ -104,22 +106,17 @@ public class RaffleApplication {
       input = sc.nextLine();
       input.trim();
 
-      switch (input) {
-        case "1":
-          handleStartDraw(sc, mainMenu);
-          break;
-        case "2":
-          handleBuyTickets(sc, mainMenu, buyTicketsPromptMenu);
-          break;
-        case "3":
-          handleRunRaffle(sc, mainMenu, runRaffleMenu);
-          break;
-          // TODO: default causes issue?
-        default:
-          System.out.println("Wrong input, please try again.\n");
-          mainMenu.display();
-          break;
-      }
+        switch (input) {
+            case "1" -> handleStartDraw(sc, mainMenu);
+            case "2" -> handleBuyTickets(sc, mainMenu, buyTicketsPromptMenu);
+            case "3" -> handleRunRaffle(sc, mainMenu, runRaffleMenu);
+
+            // TODO: default causes issue?
+            default -> {
+                System.out.println("Wrong input, please try again.\n");
+                mainMenu.display();
+            }
+        }
     }
   }
 

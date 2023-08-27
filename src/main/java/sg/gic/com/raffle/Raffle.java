@@ -11,7 +11,7 @@ import sg.gic.com.ticket.Ticket;
 import sg.gic.com.ticket.TicketFactory;
 
 /** Class encapsulating a raffle run that computes winners. */
-public class Raffle {
+public class Raffle implements Runnable {
 
   private Draw draw;
   private Ticket winningTicket;
