@@ -70,7 +70,7 @@ public class Raffle implements Runnable {
     for (int category : numWins.keySet()) {
       int numWinningTickets = numWins.get(category);
       int winCount = this.winTicketsCount.get(category) + numWinningTickets;
-      Winner winner = new Winner(player, numWinningTickets);
+      Winner winner = new Winner(player, numWinningTickets, 0);
 
       this.winTicketsCount.put(category, winCount);
       this.winners.get(category).add(winner);
@@ -78,9 +78,10 @@ public class Raffle implements Runnable {
   }
 
   private double computeWinnerPayoutByCategory(int category, Winner winner) {
-    double categoryWinAmount = draw.getDrawPool() * this.winPercentages.get(category);
+    double categoryWinAmount = this.draw.getDrawPool() * this.winPercentages.get(category);
     double winAmountPerTicket = categoryWinAmount / this.winTicketsCount.get(category);
-    double winAmount = winAmountPerTicket * winner.numWins();
+    double winAmount = winAmountPerTicket * winner.getNumWins();
+    winner.setPayout(winAmount);
 
     return winAmount;
   }
@@ -101,7 +102,6 @@ public class Raffle implements Runnable {
         this.totalPayout += computeWinnerPayoutByCategory(category, winner);
       }
     }
-
     this.draw.payout(this.totalPayout);
   }
 
@@ -129,8 +129,7 @@ public class Raffle implements Runnable {
       }
 
       for (Winner winner : this.winners.get(category)) {
-        double winAmount = computeWinnerPayoutByCategory(category, winner);
-        String winnerLine = "%s $%.2f\n".formatted(winner.toString(), winAmount);
+        String winnerLine = "%s $%.2f\n".formatted(winner.toString(), winner.getPayout());
         builder.append(winnerLine);
       }
       builder.append("\n");
