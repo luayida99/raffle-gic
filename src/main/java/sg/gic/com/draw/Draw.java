@@ -99,7 +99,6 @@ public class Draw {
       player.incrementNumTickets();
       this.addToDrawPool(generatedTicket.getCost());
     }
-    System.out.println(player.ticketsToString());
   }
 
   public boolean getOngoing() {
@@ -110,9 +109,8 @@ public class Draw {
     this.ongoing = true;
   }
 
-  // TODO: players not reset
   public void end() {
     this.ongoing = false;
-    this.players = new ArrayList<>();
+    this.players.removeAll(this.players);
   }
 }

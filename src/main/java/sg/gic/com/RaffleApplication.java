@@ -85,7 +85,7 @@ public class RaffleApplication {
     }
     raffle.run();
     runRaffleMenu.display();
-    // TODO: players not reset
+    raffle.reset();
     draw.end();
     mainMenu.resetStatus();
     // Write to System.in to continue

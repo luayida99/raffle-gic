@@ -23,9 +23,13 @@ public class Raffle implements Runnable {
   private HashMap<Integer, Integer> winTicketsCount;
 
   public Raffle(Draw draw, TicketFactory factory) {
-    this.draw = draw;
-    this.totalPayout = 0;
     Raffle.factory = factory;
+    this.draw = draw;
+    reset();
+  }
+
+  public void reset() {
+    this.totalPayout = 0;
     // Initialise winners of different categories.
     this.winners = new HashMap<>();
     this.winners.put(2, new ArrayList<>());
