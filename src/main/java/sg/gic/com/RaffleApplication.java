@@ -25,6 +25,72 @@ public class RaffleApplication {
     this.raffle = raffle;
   }
 
+  private void handleStartDraw(Scanner sc, MainMenu mainMenu) {
+    // End draw, then start a new one
+    draw.end();
+    draw.isOngoing();
+    DrawStartedMenu drawStartedMenu = new DrawStartedMenu(draw.getDrawPool());
+    drawStartedMenu.display();
+    // Write to System.in to continue
+    sc.next();
+    mainMenu.updateOngoingStatus(draw.getDrawPool());
+    mainMenu.display();
+  }
+
+  private void handleBuyTickets(Scanner sc, MainMenu mainMenu, BuyTicketsPromptMenu buyTicketsPromptMenu) {
+    // Cannot buy if draw not started.
+    if (!draw.getOngoing()) {
+      System.out.println(DRAW_NOT_ONGOING);
+      mainMenu.display();
+      return;
+    }
+
+    buyTicketsPromptMenu.display();
+    String buyTicketLine = sc.nextLine();
+    String[] splitBuyTicketLine = buyTicketLine.split(",");
+    String[] trimmedLine =
+            Arrays.stream(splitBuyTicketLine).map(String::trim).toArray(String[]::new);
+
+    if (trimmedLine.length != 2) {
+      System.out.println(BUY_TICKET_INPUT_WRONG);
+      mainMenu.display();
+    }
+
+    try {
+      String name = trimmedLine[0];
+      int numTicketsToBuy = parseInt(trimmedLine[1]);
+      Player player = draw.addPlayer(name);
+      draw.buyTickets(numTicketsToBuy, player);
+      mainMenu.updateOngoingStatus(draw.getDrawPool());
+
+      PurchasedTicketsMenu purchasedTicketsMenu =
+              new PurchasedTicketsMenu(player, numTicketsToBuy);
+      purchasedTicketsMenu.display();
+    } catch (NumberFormatException e) {
+      System.out.println(
+              "Can only buy integer number of tickets. Terminating transaction.\n");
+    } catch (MaxTicketsExceededException | NegativeTicketsToBuyException e) {
+      System.out.println(e.getMessage());
+    }
+    mainMenu.display();
+  }
+
+  private void handleRunRaffle(Scanner sc, MainMenu mainMenu, RunRaffleMenu runRaffleMenu) {
+    // Cannot run raffle if draw not started.
+    if (!draw.getOngoing()) {
+      System.out.println(DRAW_NOT_ONGOING);
+      mainMenu.display();
+      return;
+    }
+    raffle.run();
+    runRaffleMenu.display();
+    // TODO: players not reset
+    draw.end();
+    mainMenu.resetStatus();
+    // Write to System.in to continue
+    sc.next();
+  }
+
   private void run() {
     MainMenu mainMenu = new MainMenu();
     BuyTicketsPromptMenu buyTicketsPromptMenu = new BuyTicketsPromptMenu();
@@ -40,67 +106,13 @@ public class RaffleApplication {
 
       switch (input) {
         case "1":
-          // End draw, then start a new one
-          draw.end();
-          draw.isOngoing();
-          DrawStartedMenu drawStartedMenu = new DrawStartedMenu(draw.getDrawPool());
-          drawStartedMenu.display();
-          // Write to System.in to continue
-          sc.next();
-          mainMenu.updateOngoingStatus(draw.getDrawPool());
-          mainMenu.display();
+          handleStartDraw(sc, mainMenu);
           break;
         case "2":
-          // Cannot buy if draw not started.
-          if (!draw.getOngoing()) {
-            System.out.println(DRAW_NOT_ONGOING);
-            mainMenu.display();
-            break;
-          }
-
-          buyTicketsPromptMenu.display();
-          String buyTicketLine = sc.nextLine();
-          String[] splitBuyTicketLine = buyTicketLine.split(",");
-          String[] trimmedLine =
-              Arrays.stream(splitBuyTicketLine).map(String::trim).toArray(String[]::new);
-
-          if (trimmedLine.length != 2) {
-            System.out.println(BUY_TICKET_INPUT_WRONG);
-            mainMenu.display();
-          }
-
-          try {
-            String name = trimmedLine[0];
-            int numTicketsToBuy = parseInt(trimmedLine[1]);
-            Player player = draw.addPlayer(name);
-            draw.buyTickets(numTicketsToBuy, player);
-            mainMenu.updateOngoingStatus(draw.getDrawPool());
-
-            PurchasedTicketsMenu purchasedTicketsMenu =
-                new PurchasedTicketsMenu(player, numTicketsToBuy);
-            purchasedTicketsMenu.display();
-          } catch (NumberFormatException e) {
-            System.out.println(
-                "Can only buy integer number of tickets. Terminating transaction.\n");
-          } catch (MaxTicketsExceededException | NegativeTicketsToBuyException e) {
-            System.out.println(e.getMessage());
-          }
-          mainMenu.display();
+          handleBuyTickets(sc, mainMenu, buyTicketsPromptMenu);
           break;
         case "3":
-          // Cannot run raffle if draw not started.
-          if (!draw.getOngoing()) {
-            System.out.println(DRAW_NOT_ONGOING);
-            mainMenu.display();
-            break;
-          }
-          raffle.run();
-          runRaffleMenu.display();
-          // TODO: players not reset
-          draw.end();
-          mainMenu.resetStatus();
-          // Write to System.in to continue
-          sc.next();
+          handleRunRaffle(sc, mainMenu, runRaffleMenu);
           break;
           // TODO: default causes issue?
         default:

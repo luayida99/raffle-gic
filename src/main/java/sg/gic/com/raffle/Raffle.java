@@ -126,8 +126,6 @@ public class Raffle {
 
       for (Winner winner : this.winners.get(category)) {
         double winAmount = computeWinnerPayoutByCategory(category, winner);
-        // TODO: REMOVE
-        System.out.println("AMT: " + winAmount);
         String winnerLine = "%s $%.2f\n".formatted(winner.toString(), winAmount);
         builder.append(winnerLine);
       }
