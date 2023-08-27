@@ -41,7 +41,7 @@ public class RaffleApplication {
   private void handleBuyTickets(Scanner sc, MainMenu mainMenu, BuyTicketsPromptMenu buyTicketsPromptMenu) {
     // Cannot buy if draw not started.
     if (!draw.getOngoing()) {
-      System.out.println(DRAW_NOT_ONGOING);
+      System.out.println(DRAW_NOT_ONGOING + "\n");
       mainMenu.display();
       return;
     }
@@ -53,7 +53,7 @@ public class RaffleApplication {
             Arrays.stream(splitBuyTicketLine).map(String::trim).toArray(String[]::new);
 
     if (trimmedLine.length != 2) {
-      System.out.println(BUY_TICKET_INPUT_WRONG);
+      System.out.println(BUY_TICKET_INPUT_WRONG + "\n");
       mainMenu.display();
     }
 
@@ -79,7 +79,7 @@ public class RaffleApplication {
   private void handleRunRaffle(Scanner sc, MainMenu mainMenu, RunRaffleMenu runRaffleMenu) {
     // Cannot run raffle if draw not started.
     if (!draw.getOngoing()) {
-      System.out.println(DRAW_NOT_ONGOING);
+      System.out.println(DRAW_NOT_ONGOING + "\n");
       mainMenu.display();
       return;
     }

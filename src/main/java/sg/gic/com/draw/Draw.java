@@ -86,11 +86,11 @@ public class Draw {
   public void buyTickets(int numToBuy, Player player)
       throws MaxTicketsExceededException, NegativeTicketsToBuyException {
     if (numToBuy < 0) {
-      throw new NegativeTicketsToBuyException(NEGATIVE_TICKETS_EXCEPTION);
+      throw new NegativeTicketsToBuyException(NEGATIVE_TICKETS_EXCEPTION + "\n");
     }
     if (player.getNumTickets() + numToBuy > MAX_TICKETS) {
       throw new MaxTicketsExceededException(
-          MAX_TICKETS_EXCEEDED_EXCEPTION + player.getNumTickets());
+          MAX_TICKETS_EXCEEDED_EXCEPTION + player.getNumTickets() + "\n");
     }
 
     for (int i = 0; i < numToBuy; i++) {
