@@ -8,9 +8,10 @@ import java.util.concurrent.ThreadLocalRandom;
 /** Factory for creating tickets. */
 public class TicketFactory {
   /**
-   * Generates a Ticket with 5 random numbers.
+   * Generates a Ticket with TICKET_NUM_NUMBERS random numbers between TICKET_LOWER_BOUND and
+   * TICKET_UPPER_BOUND.
    *
-   * @return Ticket containing 5 random numbers in ticketNumbers.
+   * @return Ticket containing TICKET_NUM_NUMBERS random numbers.
    */
   public Ticket generate() {
     ArrayList<Integer> numbers = new ArrayList<>();

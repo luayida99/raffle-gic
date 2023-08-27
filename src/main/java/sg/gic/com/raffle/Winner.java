@@ -2,6 +2,7 @@ package sg.gic.com.raffle;
 
 import sg.gic.com.player.Player;
 
+/** Class encapsulating a winner in a raffle. */
 public class Winner {
   private Player player;
   private int numWins;
@@ -25,6 +26,11 @@ public class Winner {
     this.payout = payout;
   }
 
+  /**
+   * Overridden toString method representing player and number of winning tickets.
+   *
+   * @return String representing player and number of winning tickets.
+   */
   @Override
   public String toString() {
     return "%s with %d winning tickets -".formatted(player.getName(), numWins);

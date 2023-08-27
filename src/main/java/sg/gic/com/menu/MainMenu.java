@@ -17,7 +17,6 @@ public class MainMenu extends Menu {
   private MenuOptions options;
   private double drawPool;
 
-  /** Constructor for MainMenu. */
   public MainMenu() {
     MenuOption option1 = new MenuOption(1, START_NEW_DRAW_OPTION);
     MenuOption option2 = new MenuOption(2, BUY_TICKETS_OPTION);

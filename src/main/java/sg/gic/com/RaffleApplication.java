@@ -14,6 +14,7 @@ import sg.gic.com.raffle.Raffle;
 import sg.gic.com.raffle.Runnable;
 import sg.gic.com.ticket.TicketFactory;
 
+/** Raffle application. */
 public class RaffleApplication {
   private TicketFactory factory;
   private Draw draw;
@@ -25,6 +26,12 @@ public class RaffleApplication {
     this.raffle = raffle;
   }
 
+  /**
+   * Helper method encapsulating run of Start Draw option.
+   *
+   * @param sc Scanner for IO.
+   * @param mainMenu Main menu to be shown.
+   */
   private void handleStartDraw(Scanner sc, MainMenu mainMenu) {
     // End draw, then start a new one
     draw.end();
@@ -37,6 +44,13 @@ public class RaffleApplication {
     mainMenu.display();
   }
 
+  /**
+   * Helper method encapsulating run of Buy Tickets option.
+   *
+   * @param sc Scanner for IO
+   * @param mainMenu Main menu to be shown.
+   * @param buyTicketsPromptMenu Buy tickets prompt to be shown.
+   */
   private void handleBuyTickets(
       Scanner sc, MainMenu mainMenu, BuyTicketsPromptMenu buyTicketsPromptMenu) {
     // Cannot buy if draw not started.
@@ -75,6 +89,13 @@ public class RaffleApplication {
     mainMenu.display();
   }
 
+  /**
+   * Helper method encapsulating run of Run Raffle option.
+   *
+   * @param sc Scanner for IO.
+   * @param mainMenu Main menu to be shown.
+   * @param runRaffleMenu Raffle run menu to be shown.
+   */
   private void handleRunRaffle(Scanner sc, MainMenu mainMenu, RunRaffleMenu runRaffleMenu) {
     // Cannot run raffle if draw not started.
     if (!draw.getOngoing()) {
@@ -92,6 +113,7 @@ public class RaffleApplication {
     mainMenu.display();
   }
 
+  /** Main logic for application. */
   private void run() {
     MainMenu mainMenu = new MainMenu();
     BuyTicketsPromptMenu buyTicketsPromptMenu = new BuyTicketsPromptMenu();
@@ -119,6 +141,11 @@ public class RaffleApplication {
     }
   }
 
+  /**
+   * Application entry point.
+   *
+   * @param args CLI arguments, unused.
+   */
   public static void main(String[] args) {
     TicketFactory factory = new TicketFactory();
     Draw draw = new Draw(factory);

@@ -7,7 +7,6 @@ import static sg.gic.com.utils.Constants.RETURN_TO_MAIN_MENU_MESSAGE;
 public class DrawStartedMenu extends Menu {
   private double drawPool;
 
-  /** Constructor for RaffleStartedMenu. */
   public DrawStartedMenu(double drawPool) {
     this.drawPool = drawPool;
   }

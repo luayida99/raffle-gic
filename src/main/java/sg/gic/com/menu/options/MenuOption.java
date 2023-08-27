@@ -5,22 +5,11 @@ public class MenuOption {
   private int optionNumber;
   private String optionDescription;
 
-  /**
-   * Constructor for MenuOption.
-   *
-   * @param optionNumber Option number to be shown.
-   * @param optionDescription Description of option.
-   */
   public MenuOption(int optionNumber, String optionDescription) {
     this.optionNumber = optionNumber;
     this.optionDescription = optionDescription;
   }
 
-  /**
-   * Getter for OptionNumber.
-   *
-   * @return Option number.
-   */
   public int getOptionNumber() {
     return this.optionNumber;
   }

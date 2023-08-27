@@ -11,11 +11,6 @@ public class MenuOptions {
 
   private HashSet<Integer> optionNumbers;
 
-  /**
-   * Constructor for MenuOptions.
-   *
-   * @param options List of options available to user.
-   */
   public MenuOptions(MenuOption... options) {
     this.menuOptions = new ArrayList<>();
     this.optionNumbers = new HashSet<>();
@@ -26,6 +21,11 @@ public class MenuOptions {
     }
   }
 
+  /**
+   * Helper method to return string concatenation of all option numbers.
+   *
+   * @return String of all option numbers concatenated.
+   */
   public String getOptionNumbersString() {
     StringBuilder res = new StringBuilder();
 

@@ -6,12 +6,7 @@ import sg.gic.com.player.Player;
 public class PurchasedTicketsMenu extends Menu {
   private Player player;
   private int numTicketsPurchased;
-
-  /**
-   * Constructor for PurchasedTicketsMenu.
-   *
-   * @param player Player to show menu to.
-   */
+  
   public PurchasedTicketsMenu(Player player, int numTicketsPurchased) {
     this.player = player;
     this.numTicketsPurchased = numTicketsPurchased;

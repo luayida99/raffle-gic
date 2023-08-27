@@ -11,11 +11,6 @@ public class Ticket {
   // Use TreeSet to maintain total order for printing.
   private TreeSet<Integer> ticketNumbers;
 
-  /**
-   * Constructor for Ticket.
-   *
-   * @param numbers List of numbers on the ticket.
-   */
   public Ticket(Integer... numbers) {
     this.cost = TICKET_COST;
     this.ticketNumbers = new TreeSet<>();
@@ -24,26 +19,16 @@ public class Ticket {
     }
   }
 
-  /**
-   * Getter for ticketNumbers.
-   *
-   * @return ticketNumbers.
-   */
   public TreeSet<Integer> getTicketNumbers() {
     return this.ticketNumbers;
   }
 
-  /**
-   * Getter for cost.
-   *
-   * @return Ticket cost.
-   */
   public int getCost() {
     return this.cost;
   }
 
   /**
-   * Returns number of common numbers with a given Ticket.
+   * Returns number of common numbers with a given ticket.
    *
    * @param ticket Ticket to match against.
    * @return Number of common numbers with ticket.

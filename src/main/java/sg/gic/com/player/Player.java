@@ -12,48 +12,34 @@ public class Player {
   private ArrayList<Ticket> tickets;
   private int numTickets;
 
-  /**
-   * Constructor for Player.
-   *
-   * @param name Name of player.
-   */
   public Player(String name) {
     this.name = name;
     this.tickets = new ArrayList<>();
     this.numTickets = 0;
   }
 
-  /**
-   * Getter for name.
-   *
-   * @return Player name.
-   */
   public String getName() {
     return this.name;
   }
 
-  /**
-   * Getters for tickets.
-   *
-   * @return Tickets owned by player.
-   */
   public ArrayList<Ticket> getTickets() {
     return this.tickets;
   }
 
-  /**
-   * Getter for numTickets.
-   *
-   * @return Number of tickets owned by player.
-   */
   public int getNumTickets() {
     return this.numTickets;
   }
 
+  /** Increments number of tickets owned by player. */
   public void incrementNumTickets() {
     this.numTickets++;
   }
 
+  /**
+   * Adds ticket to player.
+   *
+   * @param ticket Ticket generated for player.
+   */
   public void addTicket(Ticket ticket) {
     this.tickets.add(ticket);
   }

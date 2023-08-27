@@ -28,6 +28,7 @@ public class Raffle implements Runnable {
     reset();
   }
 
+  /** Resets raffle. */
   public void reset() {
     this.totalPayout = 0;
     // Initialise winners of different categories.
@@ -50,6 +51,11 @@ public class Raffle implements Runnable {
     this.winTicketsCount.put(5, 0);
   }
 
+  /**
+   * Computes the number of wins in each category for given player.
+   *
+   * @param player Player to compute number of wins for.
+   */
   private void computeWinsByPlayer(Player player) {
     // Track no of winning tickets per category.
     HashMap<Integer, Integer> numWins = new HashMap<>();
@@ -77,6 +83,13 @@ public class Raffle implements Runnable {
     }
   }
 
+  /**
+   * Computes payout for winner in a category, and updates total payout of raffle.
+   *
+   * @param category Category to check.
+   * @param winner Winner to check.
+   * @return Payout for a winner in the given category.
+   */
   private double computeWinnerPayoutByCategory(int category, Winner winner) {
     double categoryWinAmount = this.draw.getDrawPool() * this.winPercentages.get(category);
     double winAmountPerTicket = categoryWinAmount / this.winTicketsCount.get(category);
@@ -86,6 +99,7 @@ public class Raffle implements Runnable {
     return winAmount;
   }
 
+  /** Runs raffle. */
   public void run() {
     this.winningTicket = factory.generate();
 
@@ -105,6 +119,11 @@ public class Raffle implements Runnable {
     this.draw.payout(this.totalPayout);
   }
 
+  /**
+   * Overridden toString method representing raffle results.
+   *
+   * @return String representing raffle results.
+   */
   @Override
   public String toString() {
     StringJoiner joiner = new StringJoiner("\n");
