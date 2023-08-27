@@ -33,6 +33,6 @@ public class Winner {
    */
   @Override
   public String toString() {
-    return "%s with %d winning tickets -".formatted(player.getName(), numWins);
+    return "%s with %d winning ticket(s) -".formatted(player.getName(), numWins);
   }
 }
