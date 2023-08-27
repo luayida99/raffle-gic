@@ -1,8 +1,7 @@
 package sg.gic.com;
 
 import static java.lang.Integer.parseInt;
-import static sg.gic.com.utils.Constants.BUY_TICKET_INPUT_WRONG;
-import static sg.gic.com.utils.Constants.DRAW_NOT_ONGOING;
+import static sg.gic.com.utils.Constants.*;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -38,7 +37,8 @@ public class RaffleApplication {
     mainMenu.display();
   }
 
-  private void handleBuyTickets(Scanner sc, MainMenu mainMenu, BuyTicketsPromptMenu buyTicketsPromptMenu) {
+  private void handleBuyTickets(
+      Scanner sc, MainMenu mainMenu, BuyTicketsPromptMenu buyTicketsPromptMenu) {
     // Cannot buy if draw not started.
     if (!draw.getOngoing()) {
       System.out.println(DRAW_NOT_ONGOING + "\n");
@@ -50,7 +50,7 @@ public class RaffleApplication {
     String buyTicketLine = sc.nextLine();
     String[] splitBuyTicketLine = buyTicketLine.split(",");
     String[] trimmedLine =
-            Arrays.stream(splitBuyTicketLine).map(String::trim).toArray(String[]::new);
+        Arrays.stream(splitBuyTicketLine).map(String::trim).toArray(String[]::new);
 
     if (trimmedLine.length != 2) {
       System.out.println(BUY_TICKET_INPUT_WRONG + "\n");
@@ -64,12 +64,10 @@ public class RaffleApplication {
       draw.buyTickets(numTicketsToBuy, player);
       mainMenu.updateOngoingStatus(draw.getDrawPool());
 
-      PurchasedTicketsMenu purchasedTicketsMenu =
-              new PurchasedTicketsMenu(player, numTicketsToBuy);
+      PurchasedTicketsMenu purchasedTicketsMenu = new PurchasedTicketsMenu(player, numTicketsToBuy);
       purchasedTicketsMenu.display();
     } catch (NumberFormatException e) {
-      System.out.println(
-              "Can only buy integer number of tickets. Terminating transaction.\n");
+      System.out.println("Can only buy integer number of tickets. Terminating transaction.\n");
     } catch (MaxTicketsExceededException | NegativeTicketsToBuyException e) {
       System.out.println(e.getMessage());
     }
@@ -108,15 +106,15 @@ public class RaffleApplication {
       input.trim();
 
       if (!mainMenu.getOptionNumbersString().contains(input)) {
-        System.out.println("Wrong input, please try again.\n");
+        System.out.println(WRONG_INPUT + "\n");
         mainMenu.display();
       }
 
-        switch (input) {
-            case "1" -> handleStartDraw(sc, mainMenu);
-            case "2" -> handleBuyTickets(sc, mainMenu, buyTicketsPromptMenu);
-            case "3" -> handleRunRaffle(sc, mainMenu, runRaffleMenu);
-        }
+      switch (input) {
+        case "1" -> handleStartDraw(sc, mainMenu);
+        case "2" -> handleBuyTickets(sc, mainMenu, buyTicketsPromptMenu);
+        case "3" -> handleRunRaffle(sc, mainMenu, runRaffleMenu);
+      }
     }
   }
 

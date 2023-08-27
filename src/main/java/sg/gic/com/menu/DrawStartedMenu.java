@@ -1,6 +1,5 @@
 package sg.gic.com.menu;
 
-import static sg.gic.com.utils.Constants.DEFAULT_POOL;
 import static sg.gic.com.utils.Constants.NEW_RAFFLE_STARTED_MESSAGE;
 import static sg.gic.com.utils.Constants.RETURN_TO_MAIN_MENU_MESSAGE;
 

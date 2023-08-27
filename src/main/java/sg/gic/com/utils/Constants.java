@@ -29,9 +29,11 @@ public class Constants {
   public static final String RUN_RAFFLE_MESSAGE = "Running Raffle..";
 
   public static final String MAX_TICKETS_EXCEEDED_EXCEPTION =
-      "Sorry, you are only allowed to buy %s tickets in total. You currently have ".formatted(MAX_TICKETS);
+      "Sorry, you are only allowed to buy %s tickets in total. You currently have "
+          .formatted(MAX_TICKETS);
   public static final String NEGATIVE_TICKETS_EXCEPTION =
       "You cannot buy negative number of tickets.";
   public static final String BUY_TICKET_INPUT_WRONG = "Input for buying ticket is wrong.";
   public static final String DRAW_NOT_ONGOING = "Draw not currently ongoing. Please start one.";
+  public static final String WRONG_INPUT = "Wrong input, please try again.";
 }
