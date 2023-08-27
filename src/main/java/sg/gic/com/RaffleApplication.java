@@ -55,6 +55,7 @@ public class RaffleApplication {
     if (trimmedLine.length != 2) {
       System.out.println(BUY_TICKET_INPUT_WRONG + "\n");
       mainMenu.display();
+      return;
     }
 
     try {
