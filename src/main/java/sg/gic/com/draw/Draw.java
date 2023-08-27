@@ -110,6 +110,7 @@ public class Draw {
     this.ongoing = true;
   }
 
+  // TODO: players not reset
   public void end() {
     this.ongoing = false;
     this.players = new ArrayList<>();
