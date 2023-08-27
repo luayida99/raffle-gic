@@ -55,4 +55,8 @@ public class MainMenu extends Menu {
     String statusLine = "Status: %s".formatted(this.status);
     return "%s \n%s \n\n%s".formatted(welcomeLine, statusLine, options.toString());
   }
+
+  public String getOptionNumbersString() {
+    return this.options.getOptionNumbersString();
+  }
 }

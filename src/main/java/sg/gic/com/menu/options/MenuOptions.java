@@ -26,6 +26,16 @@ public class MenuOptions {
     }
   }
 
+  public String getOptionNumbersString() {
+    StringBuilder res = new StringBuilder();
+
+    for (int optionNumber : this.optionNumbers) {
+      res.append(optionNumber);
+    }
+
+    return res.toString();
+  }
+
   /**
    * Overridden toString method to represent list of menu options shown to user, sorted by option
    * number.

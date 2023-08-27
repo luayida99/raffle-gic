@@ -90,6 +90,7 @@ public class RaffleApplication {
     mainMenu.resetStatus();
     // Write to System.in to continue
     sc.next();
+    mainMenu.display();
   }
 
   private void run() {
@@ -106,16 +107,15 @@ public class RaffleApplication {
       input = sc.nextLine();
       input.trim();
 
+      if (!mainMenu.getOptionNumbersString().contains(input)) {
+        System.out.println("Wrong input, please try again.\n");
+        mainMenu.display();
+      }
+
         switch (input) {
             case "1" -> handleStartDraw(sc, mainMenu);
             case "2" -> handleBuyTickets(sc, mainMenu, buyTicketsPromptMenu);
             case "3" -> handleRunRaffle(sc, mainMenu, runRaffleMenu);
-
-            // TODO: default causes issue?
-            default -> {
-                System.out.println("Wrong input, please try again.\n");
-                mainMenu.display();
-            }
         }
     }
   }
