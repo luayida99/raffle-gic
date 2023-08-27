@@ -6,10 +6,10 @@ import static sg.gic.com.utils.Constants.RETURN_TO_MAIN_MENU_MESSAGE;
 
 /** Class encapsulating the menu shown to players when starting a new raffle. */
 public class DrawStartedMenu extends Menu {
-  private int drawPool;
+  private double drawPool;
 
   /** Constructor for RaffleStartedMenu. */
-  public DrawStartedMenu(int drawPool) {
+  public DrawStartedMenu(double drawPool) {
     this.drawPool = drawPool;
   }
 
@@ -20,7 +20,7 @@ public class DrawStartedMenu extends Menu {
    */
   @Override
   public String toString() {
-    return "%s $%d \n%s"
+    return "%s $%.2f \n%s"
         .formatted(NEW_RAFFLE_STARTED_MESSAGE, this.drawPool, RETURN_TO_MAIN_MENU_MESSAGE);
   }
 }

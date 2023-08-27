@@ -13,7 +13,7 @@ import sg.gic.com.ticket.TicketFactory;
 /** Class encapsulating the raffle draw. */
 public class Draw {
   private boolean ongoing;
-  private int drawPool;
+  private double drawPool;
   private ArrayList<Player> players;
   private static TicketFactory factory;
 
@@ -30,7 +30,7 @@ public class Draw {
    *
    * @return Current raffle pool.
    */
-  public int getDrawPool() {
+  public double getDrawPool() {
     return this.drawPool;
   }
 
@@ -75,8 +75,12 @@ public class Draw {
    *
    * @param amount Amount to add to raffle pool.
    */
-  private void addToDrawPool(int amount) {
+  private void addToDrawPool(double amount) {
     this.drawPool += amount;
+  }
+
+  public void payout(double amount) {
+    this.drawPool -= amount;
   }
 
   public void buyTickets(int numToBuy, Player player)

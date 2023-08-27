@@ -15,6 +15,7 @@ public class Raffle {
 
   private Draw draw;
   private Ticket winningTicket;
+  private double totalPayout;
   private static TicketFactory factory;
 
   private HashMap<Integer, ArrayList<Winner>> winners;
@@ -23,6 +24,7 @@ public class Raffle {
 
   public Raffle(Draw draw, TicketFactory factory) {
     this.draw = draw;
+    this.totalPayout = 0;
     Raffle.factory = factory;
     // Initialise winners of different categories.
     this.winners = new HashMap<>();
@@ -71,13 +73,32 @@ public class Raffle {
     }
   }
 
+  private double computeWinnerPayoutByCategory(int category, Winner winner) {
+    double categoryWinAmount = draw.getDrawPool() * this.winPercentages.get(category);
+    double winAmountPerTicket = categoryWinAmount / this.winTicketsCount.get(category);
+    double winAmount = winAmountPerTicket * winner.numWins();
+
+    return winAmount;
+  }
+
   public void run() {
     this.winningTicket = factory.generate();
 
     for (Player player : this.draw.getPlayers()) {
       computeWinsByPlayer(player);
     }
-    // TODO: Payout
+
+    for (int category : this.winners.keySet()) {
+      if (this.winTicketsCount.get(category) == 0) {
+        continue;
+      }
+
+      for (Winner winner : this.winners.get(category)) {
+        this.totalPayout += computeWinnerPayoutByCategory(category, winner);
+      }
+    }
+
+    this.draw.payout(this.totalPayout);
   }
 
   @Override
@@ -104,9 +125,9 @@ public class Raffle {
       }
 
       for (Winner winner : this.winners.get(category)) {
-        double categoryWinAmount = draw.getDrawPool() * this.winPercentages.get(category);
-        double winAmountPerTicket = categoryWinAmount / this.winTicketsCount.get(category);
-        double winAmount = winAmountPerTicket * winner.numWins();
+        double winAmount = computeWinnerPayoutByCategory(category, winner);
+        // TODO: REMOVE
+        System.out.println("AMT: " + winAmount);
         String winnerLine = "%s $%.2f\n".formatted(winner.toString(), winAmount);
         builder.append(winnerLine);
       }

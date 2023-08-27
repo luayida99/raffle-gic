@@ -15,7 +15,7 @@ import sg.gic.com.menu.options.MenuOptions;
 public class MainMenu extends Menu {
   private String status;
   private MenuOptions options;
-  private int drawPool;
+  private double drawPool;
 
   /** Constructor for MainMenu. */
   public MainMenu() {
@@ -33,9 +33,9 @@ public class MainMenu extends Menu {
    *
    * @param updatedPool Current amount of raffle pool.
    */
-  public void updateOngoingStatus(int updatedPool) {
+  public void updateOngoingStatus(double updatedPool) {
     this.drawPool = updatedPool;
-    String ongoingStatus = "%s $%d".formatted(DRAW_ONGOING_STATUS, this.drawPool);
+    String ongoingStatus = "%s $%.2f".formatted(DRAW_ONGOING_STATUS, this.drawPool);
     this.status = ongoingStatus;
   }
 

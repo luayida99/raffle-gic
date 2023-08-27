@@ -14,16 +14,18 @@ import sg.gic.com.player.Player;
 import sg.gic.com.raffle.Raffle;
 import sg.gic.com.ticket.TicketFactory;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
 public class RaffleApplication {
-  public RaffleApplication() {}
+  private TicketFactory factory;
+  private Draw draw;
+  private Raffle raffle;
+
+  public RaffleApplication(TicketFactory factory, Draw draw, Raffle raffle) {
+    this.factory = factory;
+    this.draw = draw;
+    this.raffle = raffle;
+  }
 
   private void run() {
-    TicketFactory factory = new TicketFactory();
-    Draw draw = new Draw(factory);
-    Raffle raffle = new Raffle(draw, factory);
-
     MainMenu mainMenu = new MainMenu();
     BuyTicketsPromptMenu buyTicketsPromptMenu = new BuyTicketsPromptMenu();
     RunRaffleMenu runRaffleMenu = new RunRaffleMenu(raffle);
@@ -61,11 +63,12 @@ public class RaffleApplication {
           String[] splitBuyTicketLine = buyTicketLine.split(",");
           String[] trimmedLine =
               Arrays.stream(splitBuyTicketLine).map(String::trim).toArray(String[]::new);
-          // TODO: Exception?
+
           if (trimmedLine.length != 2) {
             System.out.println(BUY_TICKET_INPUT_WRONG);
             mainMenu.display();
           }
+
           try {
             String name = trimmedLine[0];
             int numTicketsToBuy = parseInt(trimmedLine[1]);
@@ -91,9 +94,9 @@ public class RaffleApplication {
             mainMenu.display();
             break;
           }
-          // TODO: Handle case where no tickets bought
           raffle.run();
           runRaffleMenu.display();
+          // TODO: players not reset
           draw.end();
           mainMenu.resetStatus();
           // Write to System.in to continue
@@ -101,7 +104,6 @@ public class RaffleApplication {
           break;
           // TODO: default causes issue?
         default:
-          // TODO: Cleanup
           System.out.println("Wrong input, please try again.\n");
           mainMenu.display();
           break;
@@ -110,7 +112,11 @@ public class RaffleApplication {
   }
 
   public static void main(String[] args) {
-    RaffleApplication application = new RaffleApplication();
+    TicketFactory factory = new TicketFactory();
+    Draw draw = new Draw(factory);
+    Raffle raffle = new Raffle(draw, factory);
+
+    RaffleApplication application = new RaffleApplication(factory, draw, raffle);
     application.run();
   }
 }
