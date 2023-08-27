@@ -6,43 +6,25 @@ import static sg.gic.com.utils.Constants.MAX_TICKETS;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import sg.gic.com.draw.Draw;
 import sg.gic.com.exceptions.MaxTicketsExceededException;
 import sg.gic.com.exceptions.NegativeTicketsToBuyException;
 import sg.gic.com.ticket.TicketFactory;
 // TODO: Move tests to Draw
 public class PlayerTest {
-  Player player;
+  private Player player;
+  private Draw draw;
 
-  /*
   @BeforeEach
   void setUp() {
     player = new Player("John");
-  }
-
-  @Test
-  @DisplayName("buyTickets within limit works as expected")
-  void buyTicketsWithinLimit() {
-    player.buyTickets(1);
-
-    assertEquals(1, player.getNumTickets());
-  }
-
-  @Test
-  @DisplayName("buyTickets exceeding max amount throws MaxTicketsExceededException")
-  void buyTicketsExceedLimit() {
-    assertThrows(MaxTicketsExceededException.class, () -> player.buyTickets(MAX_TICKETS + 1));
-  }
-
-  @Test
-  @DisplayName("buyTickets with negative numToBuy throws NegativeTicketsToBuyException")
-  void buyTicketsNegative() {
-    assertThrows(NegativeTicketsToBuyException.class, () -> player.buyTickets(-1));
+    draw = new Draw(new TicketFactory());
   }
 
   @Test
   @DisplayName("ticketsToString works as expected")
   void ticketsToString() {
-    player.buyTickets(MAX_TICKETS);
+    draw.buyTickets(MAX_TICKETS, player);
     String generatedString = player.ticketsToString();
 
     // Workaround for random
@@ -50,5 +32,4 @@ public class PlayerTest {
       assertTrue(generatedString.contains("Ticket %d".formatted(i)));
     }
   }
-  */
 }

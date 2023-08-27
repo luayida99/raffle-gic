@@ -32,7 +32,7 @@ public class MainMenuTest {
   void toStringUpdatedMainMenu() {
     String updatedMenuString =
         "Welcome to My Raffle App \n"
-            + "Status: Draw is ongoing. Raffle pot size is $105 \n"
+            + "Status: Draw is ongoing. Raffle pot size is $105.00 \n"
             + "\n"
             + "[1] Start a New Draw\n"
             + "[2] Buy Tickets\n"

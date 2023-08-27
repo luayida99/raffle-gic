@@ -19,7 +19,7 @@ public class DrawStartedMenuTest {
   @DisplayName("toString works as expected")
   void toStringRaffleStartedMenu() {
     String correctString =
-        "New Raffle draw has been started. Initial pot size: $100 \n"
+        "New Raffle draw has been started. Initial pot size: $100.00 \n"
             + "Press any key to return to main menu";
     assertEquals(correctString, menu.toString());
   }

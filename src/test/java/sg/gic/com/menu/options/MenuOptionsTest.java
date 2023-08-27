@@ -1,4 +1,4 @@
-package sg.gic.com.menu;
+package sg.gic.com.menu.options;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static sg.gic.com.utils.Constants.BUY_TICKETS_OPTION;
@@ -8,8 +8,6 @@ import static sg.gic.com.utils.Constants.START_NEW_DRAW_OPTION;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import sg.gic.com.menu.options.MenuOption;
-import sg.gic.com.menu.options.MenuOptions;
 
 public class MenuOptionsTest {
   private MenuOptions correctlyOrderedOptions;

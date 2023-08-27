@@ -1,4 +1,4 @@
-package sg.gic.com.menu;
+package sg.gic.com.menu.options;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static sg.gic.com.utils.Constants.START_NEW_DRAW_OPTION;
