@@ -35,17 +35,17 @@ public class Draw {
   /**
    * Checks if name is in draw, and adds a new player or retrieves existing player.
    *
-   * @param name Name to check for.
+   * @param player Player to check for.
    * @return Player that is added or retrieved.
    */
   public Player addPlayer(Player player) {
-    if (!this.containsPlayer(player.getName())) {
+    if (!this.containsPlayer(player)) {
       this.players.add(player);
       return player;
     } else {
       // If containsPlayer, player is unique
       return this.players.stream()
-          .filter(existingPlayer -> existingPlayer.matches(player.getName()))
+          .filter(existingPlayer -> existingPlayer.matches(player))
           .findFirst()
           .get();
     }
@@ -54,14 +54,14 @@ public class Draw {
   /**
    * Checks if draw contains player with a given name.
    *
-   * @param name Name to check for.
+   * @param player Player to check for.
    * @return Boolean indicating if player with given name exists.
    */
-  private boolean containsPlayer(String name) {
+  private boolean containsPlayer(Player player) {
     boolean containsPlayer = false;
 
     for (Player existingPlayer : this.players) {
-      if (existingPlayer.matches(name)) {
+      if (existingPlayer.matches(player)) {
         containsPlayer = true;
         break;
       }

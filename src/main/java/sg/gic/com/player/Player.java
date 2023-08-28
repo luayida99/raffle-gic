@@ -47,11 +47,11 @@ public class Player {
   /**
    * Checks if 2 players are equal by name.
    *
-   * @param name Player name to check against.
+   * @param player Player to check against.
    * @return Boolean indicating if 2 players are equal.
    */
-  public boolean matches(String name) {
-    return this.name.equals(name);
+  public boolean matches(Player player) {
+    return this.name.equals(player.name);
   }
 
   /**
