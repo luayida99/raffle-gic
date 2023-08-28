@@ -75,7 +75,7 @@ public class RaffleApplication {
     try {
       String name = trimmedLine[0];
       int numTicketsToBuy = parseInt(trimmedLine[1]);
-      Player player = draw.addPlayer(name);
+      Player player = draw.addPlayer(new Player(name));
       draw.buyTickets(numTicketsToBuy, player);
       mainMenu.updateOngoingStatus(draw.getDrawPool());
 

@@ -45,8 +45,8 @@ public class DrawTest {
   @Test
   @DisplayName("addPlayer works as expected")
   void addPlayer() {
-    draw.addPlayer("John");
-    draw.addPlayer("Jane");
+    draw.addPlayer(new Player("John"));
+    draw.addPlayer(new Player("Jane"));
 
     assertEquals(2, draw.getPlayers().size());
     for (Player play : draw.getPlayers()) {

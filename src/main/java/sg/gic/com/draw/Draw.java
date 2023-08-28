@@ -38,15 +38,14 @@ public class Draw {
    * @param name Name to check for.
    * @return Player that is added or retrieved.
    */
-  public Player addPlayer(String name) {
-    if (!this.containsPlayer(name)) {
-      Player player = new Player(name);
+  public Player addPlayer(Player player) {
+    if (!this.containsPlayer(player.getName())) {
       this.players.add(player);
       return player;
     } else {
       // If containsPlayer, player is unique
       return this.players.stream()
-          .filter(existingPlayer -> existingPlayer.matches(name))
+          .filter(existingPlayer -> existingPlayer.matches(player.getName()))
           .findFirst()
           .get();
     }

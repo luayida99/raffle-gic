@@ -16,8 +16,8 @@ public class RaffleTest {
   private TicketFactory factory;
 
   void setUpNonEmptyDraw() {
-    Player john = draw.addPlayer("John");
-    Player jane = draw.addPlayer("Jane");
+    Player john = draw.addPlayer(new Player("John"));
+    Player jane = draw.addPlayer(new Player("Jane"));
     john.addTicket(factory.generate());
     jane.addTicket(factory.generate());
   }
