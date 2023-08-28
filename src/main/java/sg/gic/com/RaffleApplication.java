@@ -50,6 +50,7 @@ public class RaffleApplication {
    * @param sc Scanner for IO
    * @param mainMenu Main menu to be shown.
    * @param buyTicketsPromptMenu Buy tickets prompt to be shown.
+   * @param errorMenu Error menu to be shown.
    */
   private void handleBuyTickets(
       Scanner sc,
