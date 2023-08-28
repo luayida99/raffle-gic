@@ -15,6 +15,7 @@ import sg.gic.com.draw.Draw;
 import sg.gic.com.menu.BuyTicketsPromptMenu;
 import sg.gic.com.menu.MainMenu;
 import sg.gic.com.menu.PurchasedTicketsMenu;
+import sg.gic.com.menu.RunRaffleMenu;
 import sg.gic.com.mocks.MockTicketFactory;
 import sg.gic.com.player.Player;
 import sg.gic.com.raffle.Raffle;
@@ -23,6 +24,7 @@ public class RaffleApplicationTest {
   private RaffleApplication raffleApplication;
   private MockTicketFactory factory;
   private Draw draw;
+  private Raffle raffle;
 
   private InputStream in;
   private ByteArrayOutputStream out;
@@ -38,7 +40,8 @@ public class RaffleApplicationTest {
   void setUp() {
     factory = new MockTicketFactory();
     draw = new Draw(factory);
-    raffleApplication = new RaffleApplication(factory, draw, new Raffle(draw, factory));
+    raffle = new Raffle(draw, factory);
+    raffleApplication = new RaffleApplication(factory, draw, raffle);
   }
 
   @Test
@@ -177,5 +180,42 @@ public class RaffleApplicationTest {
     assertTrue(outputString.contains(new MainMenu().toString()));
     assertTrue(outputString.contains(new BuyTicketsPromptMenu().toString()));
     assertTrue(outputString.contains(NON_INTEGER_TICKETS_PURCHASE));
+  }
+
+  @Test
+  @DisplayName("Starting raffle before draw starts fails")
+  void startRaffleBeforeDraw() {
+    String input = "3" + System.lineSeparator() + "d" + System.lineSeparator() + "exit";
+
+    setUpIO(input);
+    raffleApplication.run();
+
+    String outputString = out.toString();
+
+    assertTrue(outputString.contains(new MainMenu().toString()));
+    assertTrue(outputString.contains(DRAW_NOT_ONGOING));
+  }
+
+  @Test
+  @DisplayName("Starting raffle after starting draw works as expected")
+  void startRaffleAfterDraw() {
+    String input =
+        "1"
+            + System.lineSeparator()
+            + "d"
+            + System.lineSeparator()
+            + "3"
+            + System.lineSeparator()
+            + "d"
+            + System.lineSeparator()
+            + "exit";
+
+    setUpIO(input);
+    raffleApplication.run();
+
+    String outputString = out.toString();
+
+    assertTrue(outputString.contains(new MainMenu().toString()));
+    assertTrue(outputString.contains(new RunRaffleMenu(raffle).toString()));
   }
 }
