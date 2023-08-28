@@ -6,14 +6,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sg.gic.com.draw.Draw;
+import sg.gic.com.mocks.MockTicketFactory;
 import sg.gic.com.player.Player;
 import sg.gic.com.ticket.Ticket;
-import sg.gic.com.ticket.TicketFactory;
 
 public class RaffleTest {
   private Raffle raffle;
   private Draw draw;
-  private TicketFactory factory;
+  private MockTicketFactory factory;
 
   void setUpNonEmptyDraw() {
     Player john = draw.addPlayer(new Player("John"));
@@ -24,7 +24,7 @@ public class RaffleTest {
 
   @BeforeEach
   void setUp() {
-    factory = new TicketFactory();
+    factory = new MockTicketFactory();
     draw = new Draw(factory);
     raffle = new Raffle(draw, factory);
   }
@@ -33,14 +33,15 @@ public class RaffleTest {
   @DisplayName("run method works as expected")
   void runGeneratesWinningTicket() {
     raffle.run();
+    Ticket winningTicket = factory.generate();
     // empty run still generates winning ticket.
-    assertEquals(Ticket.class, raffle.getWinningTicket().getClass());
+    assertEquals(winningTicket.toString(), raffle.getWinningTicket().toString());
 
     raffle.reset();
     setUpNonEmptyDraw();
     raffle.run();
     // nonempty run generates winning ticket.
-    assertEquals(Ticket.class, raffle.getWinningTicket().getClass());
+    assertEquals(winningTicket.toString(), raffle.getWinningTicket().toString());
   }
 
   @Test

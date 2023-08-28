@@ -7,8 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sg.gic.com.draw.Draw;
-import sg.gic.com.ticket.TicketFactory;
-// TODO: Move tests to Draw
+import sg.gic.com.mocks.MockTicketFactory;
 
 public class PlayerTest {
   private Player player;
@@ -17,7 +16,7 @@ public class PlayerTest {
   @BeforeEach
   void setUp() {
     player = new Player("John");
-    draw = new Draw(new TicketFactory());
+    draw = new Draw(new MockTicketFactory());
   }
 
   @Test
@@ -25,10 +24,13 @@ public class PlayerTest {
   void ticketsToString() {
     draw.buyTickets(MAX_TICKETS, player);
     String generatedString = player.ticketsToString();
+    String expectedString =
+        "Ticket 1: 1 2 3 4 5\n"
+            + "Ticket 2: 1 2 3 4 5\n"
+            + "Ticket 3: 1 2 3 4 5\n"
+            + "Ticket 4: 1 2 3 4 5\n"
+            + "Ticket 5: 1 2 3 4 5";
 
-    // Workaround for random
-    for (int i = 1; i < MAX_TICKETS + 1; i++) {
-      assertTrue(generatedString.contains("Ticket %d".formatted(i)));
-    }
+    assertEquals(expectedString, generatedString);
   }
 }

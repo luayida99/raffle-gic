@@ -7,11 +7,14 @@ import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.BeforeEach;
 import sg.gic.com.draw.Draw;
+import sg.gic.com.mocks.MockTicketFactory;
 import sg.gic.com.raffle.Raffle;
-import sg.gic.com.ticket.TicketFactory;
 
 public class RaffleApplicationTest {
   private RaffleApplication raffleApplication;
+  private MockTicketFactory factory;
+  private Draw draw;
+
   private InputStream in;
   private ByteArrayOutputStream out;
 
@@ -24,8 +27,8 @@ public class RaffleApplicationTest {
 
   @BeforeEach
   void setUp() {
-    TicketFactory factory = new TicketFactory();
-    Draw draw = new Draw(factory);
+    factory = new MockTicketFactory();
+    draw = new Draw(factory);
     raffleApplication = new RaffleApplication(factory, draw, new Raffle(draw, factory));
   }
 
