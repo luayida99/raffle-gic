@@ -3,6 +3,7 @@ Environment & Instructions to run
 - Windows
 - Dependencies required
     - Amazon Coretto 20
+    - Maven
     - junit-jupiter
 - Recommended IDE to use is IntelliJ
 - Simply run the "RaffleApplication.java" file. The file is in this location, "src/main/java/sg/gic/com/RaffleApplication.java"
