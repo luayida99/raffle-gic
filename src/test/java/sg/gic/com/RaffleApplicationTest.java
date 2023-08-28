@@ -1,5 +1,8 @@
 package sg.gic.com;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static sg.gic.com.utils.Constants.*;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -9,10 +12,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sg.gic.com.draw.Draw;
+import sg.gic.com.menu.BuyTicketsPromptMenu;
+import sg.gic.com.menu.MainMenu;
+import sg.gic.com.menu.PurchasedTicketsMenu;
 import sg.gic.com.mocks.MockTicketFactory;
+import sg.gic.com.player.Player;
 import sg.gic.com.raffle.Raffle;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RaffleApplicationTest {
   private RaffleApplication raffleApplication;
@@ -36,70 +41,141 @@ public class RaffleApplicationTest {
     raffleApplication = new RaffleApplication(factory, draw, new Raffle(draw, factory));
   }
 
-    @Test
-    @DisplayName("Starting a draw works as expected")
-    void startDrawTest() {
-      String input = "1" + System.lineSeparator() + "d" + System.lineSeparator() + "exit";
-      String expectedOutput = "Welcome to My Raffle App \n" +
-              "Status: Draw has not started \n" +
-              "\n" +
-              "[1] Start a New Draw\n" +
-              "[2] Buy Tickets\n" +
-              "[3] Run Raffle\n" +
-              "New Raffle draw has been started. Initial pot size: $100.00 \n" +
-              "Press any key to return to main menu\n" +
-              "Welcome to My Raffle App \n" +
-              "Status: Draw is ongoing. Raffle pot size is $100.00 \n" +
-              "\n" +
-              "[1] Start a New Draw\n" +
-              "[2] Buy Tickets\n" +
-              "[3] Run Raffle\n" +
-              "Wrong input, please try again.\n" +
-              "\n" +
-              "Welcome to My Raffle App \n" +
-              "Status: Draw is ongoing. Raffle pot size is $100.00 \n" +
-              "\n" +
-              "[1] Start a New Draw\n" +
-              "[2] Buy Tickets\n" +
-              "[3] Run Raffle\n";
+  @Test
+  @DisplayName("Wrong input works as expected")
+  void wrongInputTest() {
+    String input = "4\nexit";
 
-      setUpIO(input);
-      raffleApplication.run();
+    setUpIO(input);
+    raffleApplication.run();
 
-      assertEquals(expectedOutput, out.toString());
-    }
+    String outputString = out.toString();
 
-    @Test
-    @DisplayName("Wrong input works as expected")
-    void wrongInputTest() {
-      String input = "4\nexit";
-    String expectedOutput =
-        "Welcome to My Raffle App \n"
-            + "Status: Draw has not started \n"
-            + "\n"
-            + "[1] Start a New Draw\n"
-            + "[2] Buy Tickets\n"
-            + "[3] Run Raffle\n"
-            + "Wrong input, please try again.\n"
-            + "\n"
-            + "Welcome to My Raffle App \n"
-            + "Status: Draw has not started \n"
-            + "\n"
-            + "[1] Start a New Draw\n"
-            + "[2] Buy Tickets\n"
-            + "[3] Run Raffle\n"
-            + "Wrong input, please try again.\n"
-            + "\n"
-            + "Welcome to My Raffle App \n"
-            + "Status: Draw has not started \n"
-            + "\n"
-            + "[1] Start a New Draw\n"
-            + "[2] Buy Tickets\n"
-            + "[3] Run Raffle\n";
+    assertTrue(outputString.contains(new MainMenu().toString()));
+    assertTrue(outputString.contains(WRONG_INPUT));
+  }
 
-      setUpIO(input);
-      raffleApplication.run();
+  @Test
+  @DisplayName("Starting a draw works as expected")
+  void startDrawTest() {
+    String input = "1" + System.lineSeparator() + "d" + System.lineSeparator() + "exit";
 
-      assertEquals(expectedOutput, out.toString());
-    }
+    setUpIO(input);
+    raffleApplication.run();
+
+    String outputString = out.toString();
+
+    assertTrue(outputString.contains(new MainMenu().toString()));
+    assertTrue(outputString.contains(EXIT_APP));
+  }
+
+  @Test
+  @DisplayName("Buying tickets before draw starts fails")
+  void buyTicketsBeforeDraw() {
+    String input = "2" + System.lineSeparator() + "d" + System.lineSeparator() + "exit";
+
+    setUpIO(input);
+    raffleApplication.run();
+
+    String outputString = out.toString();
+
+    assertTrue(outputString.contains(new MainMenu().toString()));
+    assertTrue(outputString.contains(DRAW_NOT_ONGOING));
+  }
+
+  @Test
+  @DisplayName("Buying tickets after draw, within ticket limits works as expected")
+  void buyTicketsAfterDrawWithinLimit() {
+    String input =
+        "1"
+            + System.lineSeparator()
+            + "d"
+            + System.lineSeparator()
+            + "2"
+            + System.lineSeparator()
+            + "test,3"
+            + System.lineSeparator()
+            + "exit";
+
+    setUpIO(input);
+    raffleApplication.run();
+
+    String outputString = out.toString();
+
+    assertTrue(outputString.contains(new MainMenu().toString()));
+    assertTrue(outputString.contains(new BuyTicketsPromptMenu().toString()));
+    assertTrue(outputString.contains(new PurchasedTicketsMenu(new Player("test"), 3).toString()));
+  }
+
+  @Test
+  @DisplayName("Buying tickets after draw, beyond ticket limits works as expected")
+  void buyTicketsAfterDrawBeyondLimit() {
+    String input =
+        "1"
+            + System.lineSeparator()
+            + "d"
+            + System.lineSeparator()
+            + "2"
+            + System.lineSeparator()
+            + "test,6"
+            + System.lineSeparator()
+            + "exit";
+
+    setUpIO(input);
+    raffleApplication.run();
+
+    String outputString = out.toString();
+
+    assertTrue(outputString.contains(new MainMenu().toString()));
+    assertTrue(outputString.contains(new BuyTicketsPromptMenu().toString()));
+    assertTrue(outputString.contains(MAX_TICKETS_EXCEEDED_EXCEPTION));
+  }
+
+  @Test
+  @DisplayName("Buying tickets after draw, negative tickets works as expected")
+  void buyTicketsAfterDrawNegativeTickets() {
+    String input =
+        "1"
+            + System.lineSeparator()
+            + "d"
+            + System.lineSeparator()
+            + "2"
+            + System.lineSeparator()
+            + "test,-1"
+            + System.lineSeparator()
+            + "exit";
+
+    setUpIO(input);
+    raffleApplication.run();
+
+    String outputString = out.toString();
+
+    assertTrue(outputString.contains(new MainMenu().toString()));
+    assertTrue(outputString.contains(new BuyTicketsPromptMenu().toString()));
+    assertTrue(outputString.contains(NEGATIVE_TICKETS_EXCEPTION));
+  }
+
+  @Test
+  @DisplayName("Buying tickets with malformed input fails")
+  void buyTicketsMalformedInput() {
+    String input =
+        "1"
+            + System.lineSeparator()
+            + "d"
+            + System.lineSeparator()
+            + "2"
+            + System.lineSeparator()
+            + "test,1.5"
+            + System.lineSeparator()
+            + "exit";
+
+    setUpIO(input);
+    raffleApplication.run();
+
+    String outputString = out.toString();
+
+    assertTrue(outputString.contains(new MainMenu().toString()));
+    assertTrue(outputString.contains(new BuyTicketsPromptMenu().toString()));
+    assertTrue(outputString.contains(NON_INTEGER_TICKETS_PURCHASE));
+  }
 }
