@@ -16,7 +16,7 @@ public class TicketFactory {
   public Ticket generate() {
     ArrayList<Integer> numbers = new ArrayList<>();
     ThreadLocalRandom.current()
-        .ints(TICKET_LOWER_BOUND, TICKET_UPPER_BOUND)
+        .ints(TICKET_LOWER_BOUND, TICKET_UPPER_BOUND + 1) // upper bound is exclusive
         .distinct()
         .limit(TICKET_NUM_NUMBERS)
         .forEach(numbers::add);
