@@ -1,6 +1,5 @@
 package sg.gic.com;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -8,8 +7,6 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import sg.gic.com.draw.Draw;
 import sg.gic.com.raffle.Raffle;
 import sg.gic.com.ticket.TicketFactory;
@@ -33,13 +30,13 @@ public class RaffleApplicationTest {
     raffleApplication = new RaffleApplication(factory, draw, new Raffle(draw, factory));
   }
 
-//  @Test
-//  @DisplayName("Option 1 works as expected")
-//  void startDrawTest() {
-//    String input = "1\nd\n";
-//    setUpIO(input);
-//
-//    raffleApplication.run();
-//    assertEquals("", out.toString());
-//  }
+  //  @Test
+  //  @DisplayName("Option 1 works as expected")
+  //  void startDrawTest() {
+  //    String input = "1\nd\n";
+  //    setUpIO(input);
+  //
+  //    raffleApplication.run();
+  //    assertEquals("", out.toString());
+  //  }
 }
