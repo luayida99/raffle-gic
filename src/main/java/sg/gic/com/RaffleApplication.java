@@ -52,10 +52,14 @@ public class RaffleApplication {
    * @param buyTicketsPromptMenu Buy tickets prompt to be shown.
    */
   private void handleBuyTickets(
-      Scanner sc, MainMenu mainMenu, BuyTicketsPromptMenu buyTicketsPromptMenu) {
+      Scanner sc,
+      MainMenu mainMenu,
+      BuyTicketsPromptMenu buyTicketsPromptMenu,
+      ErrorMenu errorMenu) {
     // Cannot buy if draw not started.
     if (!draw.getOngoing()) {
-      System.out.println(DRAW_NOT_ONGOING + "\n");
+      errorMenu.updateError(DRAW_NOT_ONGOING + "\n");
+      errorMenu.display();
       mainMenu.display();
       return;
     }
@@ -67,7 +71,8 @@ public class RaffleApplication {
         Arrays.stream(splitBuyTicketLine).map(String::trim).toArray(String[]::new);
 
     if (trimmedLine.length != 2) {
-      System.out.println(BUY_TICKET_INPUT_WRONG + "\n");
+      errorMenu.updateError(BUY_TICKET_INPUT_WRONG + "\n");
+      errorMenu.display();
       mainMenu.display();
       return;
     }
@@ -82,9 +87,11 @@ public class RaffleApplication {
       PurchasedTicketsMenu purchasedTicketsMenu = new PurchasedTicketsMenu(player, numTicketsToBuy);
       purchasedTicketsMenu.display();
     } catch (NumberFormatException e) {
-      System.out.println(NON_INTEGER_TICKETS_PURCHASE + "\n");
+      errorMenu.updateError(NON_INTEGER_TICKETS_PURCHASE + "\n");
+      errorMenu.display();
     } catch (MaxTicketsExceededException | NegativeTicketsToBuyException e) {
-      System.out.println(e.getMessage());
+      errorMenu.updateError(e.getMessage());
+      errorMenu.display();
     }
     mainMenu.display();
   }
@@ -95,11 +102,14 @@ public class RaffleApplication {
    * @param sc Scanner for IO.
    * @param mainMenu Main menu to be shown.
    * @param runRaffleMenu Raffle run menu to be shown.
+   * @param errorMenu Error menu to be shown.
    */
-  private void handleRunRaffle(Scanner sc, MainMenu mainMenu, RunRaffleMenu runRaffleMenu) {
+  private void handleRunRaffle(
+      Scanner sc, MainMenu mainMenu, RunRaffleMenu runRaffleMenu, ErrorMenu errorMenu) {
     // Cannot run raffle if draw not started.
     if (!draw.getOngoing()) {
-      System.out.println(DRAW_NOT_ONGOING + "\n");
+      errorMenu.updateError(DRAW_NOT_ONGOING + "\n");
+      errorMenu.display();
       mainMenu.display();
       return;
     }
@@ -119,6 +129,8 @@ public class RaffleApplication {
     BuyTicketsPromptMenu buyTicketsPromptMenu = new BuyTicketsPromptMenu();
     // Safe cast, main method instantiates as Raffle classtype.
     RunRaffleMenu runRaffleMenu = new RunRaffleMenu((Raffle) raffle);
+    ErrorMenu errorMenu = new ErrorMenu("");
+    ExitMenu exitMenu = new ExitMenu();
 
     mainMenu.display();
     Scanner sc = new Scanner(System.in);
@@ -129,19 +141,20 @@ public class RaffleApplication {
       input.trim();
 
       if (input.equals("exit")) {
-        System.out.println(EXIT_APP + "\n");
+        exitMenu.display();
         continue;
       }
 
       if (!mainMenu.getOptionNumbersString().contains(input)) {
-        System.out.println(WRONG_INPUT + "\n");
+        errorMenu.updateError(WRONG_INPUT + "\n");
+        errorMenu.display();
         mainMenu.display();
       }
 
       switch (input) {
         case "1" -> handleStartDraw(sc, mainMenu);
-        case "2" -> handleBuyTickets(sc, mainMenu, buyTicketsPromptMenu);
-        case "3" -> handleRunRaffle(sc, mainMenu, runRaffleMenu);
+        case "2" -> handleBuyTickets(sc, mainMenu, buyTicketsPromptMenu, errorMenu);
+        case "3" -> handleRunRaffle(sc, mainMenu, runRaffleMenu, errorMenu);
       }
     }
   }

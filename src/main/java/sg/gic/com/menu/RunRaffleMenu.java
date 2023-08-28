@@ -4,7 +4,7 @@ import sg.gic.com.raffle.Raffle;
 
 /** Class encapsulating menu shown to players when running the raffle. */
 public class RunRaffleMenu extends Menu {
-  Raffle raffle;
+  private Raffle raffle;
 
   public RunRaffleMenu(Raffle raffle) {
     this.raffle = raffle;

@@ -12,10 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sg.gic.com.draw.Draw;
-import sg.gic.com.menu.BuyTicketsPromptMenu;
-import sg.gic.com.menu.MainMenu;
-import sg.gic.com.menu.PurchasedTicketsMenu;
-import sg.gic.com.menu.RunRaffleMenu;
+import sg.gic.com.menu.*;
 import sg.gic.com.mocks.MockTicketFactory;
 import sg.gic.com.player.Player;
 import sg.gic.com.raffle.Raffle;
@@ -131,7 +128,7 @@ public class RaffleApplicationTest {
 
     assertTrue(outputString.contains(new MainMenu().toString()));
     assertTrue(outputString.contains(new BuyTicketsPromptMenu().toString()));
-    assertTrue(outputString.contains(MAX_TICKETS_EXCEEDED_EXCEPTION));
+    assertTrue(outputString.contains(new ErrorMenu(MAX_TICKETS_EXCEEDED_EXCEPTION).toString()));
   }
 
   @Test
@@ -155,7 +152,7 @@ public class RaffleApplicationTest {
 
     assertTrue(outputString.contains(new MainMenu().toString()));
     assertTrue(outputString.contains(new BuyTicketsPromptMenu().toString()));
-    assertTrue(outputString.contains(NEGATIVE_TICKETS_EXCEPTION));
+    assertTrue(outputString.contains(new ErrorMenu(NEGATIVE_TICKETS_EXCEPTION).toString()));
   }
 
   @Test
@@ -179,7 +176,7 @@ public class RaffleApplicationTest {
 
     assertTrue(outputString.contains(new MainMenu().toString()));
     assertTrue(outputString.contains(new BuyTicketsPromptMenu().toString()));
-    assertTrue(outputString.contains(NON_INTEGER_TICKETS_PURCHASE));
+    assertTrue(outputString.contains(new ErrorMenu(NON_INTEGER_TICKETS_PURCHASE).toString()));
   }
 
   @Test
@@ -193,7 +190,7 @@ public class RaffleApplicationTest {
     String outputString = out.toString();
 
     assertTrue(outputString.contains(new MainMenu().toString()));
-    assertTrue(outputString.contains(DRAW_NOT_ONGOING));
+    assertTrue(outputString.contains(new ErrorMenu(DRAW_NOT_ONGOING).toString()));
   }
 
   @Test
