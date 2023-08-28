@@ -146,7 +146,7 @@ public class RaffleApplication {
         continue;
       }
 
-      if (!mainMenu.getOptionNumbersString().contains(input)) {
+      if (!mainMenu.getOptionNumbersArray().contains(input)) {
         errorMenu.updateError(WRONG_INPUT + "\n");
         errorMenu.display();
         mainMenu.display();

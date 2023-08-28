@@ -24,16 +24,16 @@ public class MenuOptions {
   /**
    * Helper method to return string concatenation of all option numbers.
    *
-   * @return String of all option numbers concatenated.
+   * @return Array of all option numbers.
    */
-  public String getOptionNumbersString() {
-    StringBuilder res = new StringBuilder();
+  public ArrayList<String> getOptionNumbersArray() {
+    ArrayList<String> res = new ArrayList<>();
 
     for (int optionNumber : this.optionNumbers) {
-      res.append(optionNumber);
+      res.add(Integer.toString(optionNumber));
     }
 
-    return res.toString();
+    return res;
   }
 
   /**

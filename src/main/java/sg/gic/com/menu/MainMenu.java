@@ -8,6 +8,7 @@ import static sg.gic.com.utils.Constants.RUN_RAFFLE_OPTION;
 import static sg.gic.com.utils.Constants.START_NEW_DRAW_OPTION;
 import static sg.gic.com.utils.Constants.WELCOME_MESSAGE;
 
+import java.util.ArrayList;
 import sg.gic.com.menu.options.MenuOption;
 import sg.gic.com.menu.options.MenuOptions;
 
@@ -55,7 +56,12 @@ public class MainMenu extends Menu {
     return "%s \n%s \n\n%s".formatted(welcomeLine, statusLine, options.toString());
   }
 
-  public String getOptionNumbersString() {
-    return this.options.getOptionNumbersString();
+  /**
+   * Helper method to return string concatenation of all option numbers.
+   *
+   * @return Array of all option numbers.
+   */
+  public ArrayList<String> getOptionNumbersArray() {
+    return this.options.getOptionNumbersArray();
   }
 }
