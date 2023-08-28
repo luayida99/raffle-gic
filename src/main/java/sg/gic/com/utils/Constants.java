@@ -36,4 +36,5 @@ public class Constants {
   public static final String BUY_TICKET_INPUT_WRONG = "Input for buying ticket is wrong.";
   public static final String DRAW_NOT_ONGOING = "Draw not currently ongoing. Please start one.";
   public static final String WRONG_INPUT = "Wrong input, please try again.";
+  public static final String NON_INTEGER_TICKETS_PURCHASE = "Can only buy integer number of tickets. Terminating transaction.";
 }

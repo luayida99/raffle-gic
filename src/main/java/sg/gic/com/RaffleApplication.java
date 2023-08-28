@@ -82,7 +82,7 @@ public class RaffleApplication {
       PurchasedTicketsMenu purchasedTicketsMenu = new PurchasedTicketsMenu(player, numTicketsToBuy);
       purchasedTicketsMenu.display();
     } catch (NumberFormatException e) {
-      System.out.println("Can only buy integer number of tickets. Terminating transaction.\n");
+      System.out.println(NON_INTEGER_TICKETS_PURCHASE + "\n");
     } catch (MaxTicketsExceededException | NegativeTicketsToBuyException e) {
       System.out.println(e.getMessage());
     }
@@ -114,7 +114,7 @@ public class RaffleApplication {
   }
 
   /** Main logic for application. */
-  private void run() {
+  public void run() {
     MainMenu mainMenu = new MainMenu();
     BuyTicketsPromptMenu buyTicketsPromptMenu = new BuyTicketsPromptMenu();
     // Safe cast, main method instantiates as Raffle classtype.
