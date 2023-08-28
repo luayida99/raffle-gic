@@ -18,8 +18,8 @@ public class RaffleTest {
   void setUpNonEmptyDraw() {
     Player john = draw.addPlayer(new Player("John"));
     Player jane = draw.addPlayer(new Player("Jane"));
-    john.addTicket(factory.generate());
-    jane.addTicket(factory.generate());
+    draw.buyTickets(5, john);
+    draw.buyTickets(5, jane);
   }
 
   @BeforeEach
