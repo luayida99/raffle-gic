@@ -124,7 +124,7 @@ public class RaffleApplication {
     Scanner sc = new Scanner(System.in);
     String input;
 
-    while (true) {
+    do {
       input = sc.nextLine();
       input.trim();
 
@@ -138,7 +138,7 @@ public class RaffleApplication {
         case "2" -> handleBuyTickets(sc, mainMenu, buyTicketsPromptMenu);
         case "3" -> handleRunRaffle(sc, mainMenu, runRaffleMenu);
       }
-    }
+    } while (!input.equals("exit"));
   }
 
   /**
