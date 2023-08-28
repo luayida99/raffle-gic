@@ -6,7 +6,7 @@ import sg.gic.com.player.Player;
 public class PurchasedTicketsMenu extends Menu {
   private Player player;
   private int numTicketsPurchased;
-  
+
   public PurchasedTicketsMenu(Player player, int numTicketsPurchased) {
     this.player = player;
     this.numTicketsPurchased = numTicketsPurchased;

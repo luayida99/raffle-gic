@@ -6,7 +6,6 @@ import static sg.gic.com.utils.Constants.START_NEW_DRAW_OPTION;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import sg.gic.com.menu.options.MenuOption;
 
 public class MenuOptionTest {
   private MenuOption option;

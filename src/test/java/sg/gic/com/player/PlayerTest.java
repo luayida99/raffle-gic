@@ -7,10 +7,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import sg.gic.com.draw.Draw;
-import sg.gic.com.exceptions.MaxTicketsExceededException;
-import sg.gic.com.exceptions.NegativeTicketsToBuyException;
 import sg.gic.com.ticket.TicketFactory;
 // TODO: Move tests to Draw
+
 public class PlayerTest {
   private Player player;
   private Draw draw;

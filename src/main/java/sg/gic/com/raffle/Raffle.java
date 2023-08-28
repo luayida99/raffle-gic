@@ -28,6 +28,26 @@ public class Raffle implements Runnable {
     reset();
   }
 
+  public Ticket getWinningTicket() {
+    return this.winningTicket;
+  }
+
+  public double getTotalPayout() {
+    return this.totalPayout;
+  }
+
+  public HashMap<Integer, ArrayList<Winner>> getWinners() {
+    return this.winners;
+  }
+
+  public HashMap<Integer, Integer> getWinTicketsCount() {
+    return this.winTicketsCount;
+  }
+
+  public HashMap<Integer, Double> getWinPercentages() {
+    return this.winPercentages;
+  }
+
   /** Resets raffle. */
   public void reset() {
     this.totalPayout = 0;
