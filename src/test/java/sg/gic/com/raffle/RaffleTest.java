@@ -62,4 +62,22 @@ public class RaffleTest {
     assertEquals(0.25, raffle.getWinPercentages().get(4));
     assertEquals(0.50, raffle.getWinPercentages().get(5));
   }
+
+  @Test
+  @DisplayName("run method with winning players works as expected")
+  void runNonEmpty() {
+    setUpNonEmptyDraw();
+
+    raffle.run();
+
+    assertEquals(75.0, raffle.getTotalPayout());
+  }
+
+  @Test
+  @DisplayName("run method with no players works as expected")
+  void runEmpty() {
+    raffle.run();
+
+    assertEquals(0, raffle.getTotalPayout());
+  }
 }
