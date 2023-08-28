@@ -124,11 +124,11 @@ public class RaffleApplication {
     Scanner sc = new Scanner(System.in);
     String input = "";
 
-    while (!input.matches("exit")) {
+    while (!input.equals("exit")) {
       input = sc.nextLine();
       input.trim();
 
-      if (input.matches("exit")) {
+      if (input.equals("exit")) {
         System.out.println(EXIT_APP + "\n");
         continue;
       }
