@@ -168,6 +168,9 @@ public class Raffle implements Runnable {
       }
 
       for (Winner winner : this.winners.get(category)) {
+        if (winner.getNumWins() == 0) {
+          continue;
+        }
         String winnerLine = "%s $%.2f\n".formatted(winner.toString(), winner.getPayout());
         builder.append(winnerLine);
       }
