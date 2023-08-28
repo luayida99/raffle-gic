@@ -20,6 +20,17 @@ public class PlayerTest {
   }
 
   @Test
+  @DisplayName("matches works as expected")
+  void matchesTest() {
+    Player p1 = new Player("john");
+    Player p1Duplicate = new Player("john");
+    Player p2 = new Player("jane");
+
+    assertTrue(p1.matches(p1Duplicate));
+    assertFalse(p1.matches(p2));
+  }
+
+  @Test
   @DisplayName("ticketsToString works as expected")
   void ticketsToString() {
     draw.buyTickets(MAX_TICKETS, player);
