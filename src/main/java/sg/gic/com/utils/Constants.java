@@ -38,4 +38,5 @@ public class Constants {
   public static final String WRONG_INPUT = "Wrong input, please try again.";
   public static final String NON_INTEGER_TICKETS_PURCHASE =
       "Can only buy integer number of tickets. Terminating transaction.";
+  public static final String EXIT_APP = "Exiting app.";
 }

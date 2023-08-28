@@ -68,4 +68,38 @@ public class RaffleApplicationTest {
 
       assertEquals(expectedOutput, out.toString());
     }
+
+    @Test
+    @DisplayName("Wrong input works as expected")
+    void wrongInputTest() {
+      String input = "4\nexit";
+    String expectedOutput =
+        "Welcome to My Raffle App \n"
+            + "Status: Draw has not started \n"
+            + "\n"
+            + "[1] Start a New Draw\n"
+            + "[2] Buy Tickets\n"
+            + "[3] Run Raffle\n"
+            + "Wrong input, please try again.\n"
+            + "\n"
+            + "Welcome to My Raffle App \n"
+            + "Status: Draw has not started \n"
+            + "\n"
+            + "[1] Start a New Draw\n"
+            + "[2] Buy Tickets\n"
+            + "[3] Run Raffle\n"
+            + "Wrong input, please try again.\n"
+            + "\n"
+            + "Welcome to My Raffle App \n"
+            + "Status: Draw has not started \n"
+            + "\n"
+            + "[1] Start a New Draw\n"
+            + "[2] Buy Tickets\n"
+            + "[3] Run Raffle\n";
+
+      setUpIO(input);
+      raffleApplication.run();
+
+      assertEquals(expectedOutput, out.toString());
+    }
 }

@@ -122,11 +122,16 @@ public class RaffleApplication {
 
     mainMenu.display();
     Scanner sc = new Scanner(System.in);
-    String input;
+    String input = "";
 
-    do {
+    while (!input.matches("exit")) {
       input = sc.nextLine();
       input.trim();
+
+      if (input.matches("exit")) {
+        System.out.println(EXIT_APP + "\n");
+        continue;
+      }
 
       if (!mainMenu.getOptionNumbersString().contains(input)) {
         System.out.println(WRONG_INPUT + "\n");
@@ -138,7 +143,7 @@ public class RaffleApplication {
         case "2" -> handleBuyTickets(sc, mainMenu, buyTicketsPromptMenu);
         case "3" -> handleRunRaffle(sc, mainMenu, runRaffleMenu);
       }
-    } while (!input.equals("exit"));
+    }
   }
 
   /**
