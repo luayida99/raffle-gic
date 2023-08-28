@@ -15,6 +15,7 @@ Assumptions
 - 
 - The raffle does not refund players (i.e. If a new draw is started before the raffle is run, the draw pot will remain the same)
 - The draw must be started before buying of tickets and running of raffle is allowed.
+- Press any key to exit requires an input to be entered, followed by the enter key. 
 - Typing 'exit' exits the application.
 
 Design
